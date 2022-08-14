@@ -13,7 +13,9 @@ const galleryImgs = (galleryItems) => {
 const photos = galleryImgs(galleryItems);
 gallery.insertAdjacentHTML("beforeend", photos);
 
-let gallerySimpleLightbox = new SimpleLightbox(".gallery a");
+let gallerySimpleLightbox = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+});
 gallerySimpleLightbox.on("show.simplelightbox", function () {
   gallerySimpleLightbox.addEventListener("keydown", (evt) => {
     if (evt.code === "Escape") {

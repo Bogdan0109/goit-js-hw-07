@@ -26,20 +26,30 @@ gallery.addEventListener("click", markup);
 
 function markup(evt) {
   evt.preventDefault();
-
+  console.log("Добавить");
   if (evt.target.nodeName !== "IMG") {
     return;
   }
 
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
 	<img src="${evt.target.dataset.source}" width="800" height="600" />
-`);
+`,
+    {
+      onClose: (instance) => {
+        gallery.removeEventListener("keydown", onHandlerEscape);
+      },
+    }
+  );
   instance.show();
 
-  gallery.addEventListener("keydown", (evt) => {
+  gallery.addEventListener("keydown", onHandlerEscape);
+
+  function onHandlerEscape(evt) {
     if (evt.code === "Escape") {
       instance.close();
+      console.log("Удалить");
     }
-  });
+  }
   console.log(evt.target === evt.currentTarget);
 }
